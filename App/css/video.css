@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+
+}
+
+html,
+body {
+    height: 100%;
+}
+
+header {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: auto;
+    
+}
+
+.conteudo {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.conteudo p {
+    display: inline;
+    font-size: 60px;
+    color: #007bff;
+    font-family: 'Alex Brush';
+    font-size: 10vw;
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+
+}
+a:link {
+    color: red;
+ }
+ 
+ /* link que foi visitado */
+ a:visited {
+     color: green;
+ }
+ 
+ /* mouse over */
+ a:hover {
+     color: #000000;
+ }
+ 
+ /* link selecionado */
+ a:active {
+     color: blue;
+ }

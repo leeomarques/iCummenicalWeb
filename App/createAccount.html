@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximun-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="//bootswatch.com/4/materia/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link type="text/css" rel="stylesheet" href="//cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+
+    <title>iCummenical - A integração em suas mãos</title>
+</head>
+
+<body>
+
+    <h1>Criar conta</h1>
+
+    <div class="col-md-4">
+        <br>
+        <form>
+            <div class="form-group">
+                <label for="emailInput">E-mail</label>
+                <input type="email" class="form-control" id="emailInput" placeholder="E-mail">
+            </div>
+            <div class="form-group">
+                <label for="passwordInput">Senha</label>
+                <input type="password" class="form-control" id="passwordInput" placeholder="Senha">
+            </div>
+            <div class="form-group">
+                <label for="repasswordInput">Repita a Senha</label>
+                <input type="password" class="form-control" name="repasswordInput" id="repasswordInput" required title="Repita a Senha"
+                    placeholder="Repita a Senha">
+            </div>
+        </form>
+
+        <button class="btn btn-lg btn-block btn-info" id="createUserButton" type="submit">Criar Nova Conta</button>
+        <br>
+
+
+    </div>
+    <br><br>
+
+    <a href="../App/authentication.html" class="button button-clear">Voltar</a>
+
+
+    <script src="//cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/createAccount.js"></script>
+
+
+</body>
+
+
+</html>
