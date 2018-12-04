@@ -183,13 +183,11 @@
 
         Blog.on('value', function (r) {
 
-            $('#entries').html('Loading...');
+            $('#entries').html('Carregando...');
             var html = '';
             r.forEach(function (item) {
                 entry = item.val()
                 html = '<div >' +
-                    '<a href="entry.html?id=' + item.getKey() +
-                    '" style="text-decoration:none!important;">' +
                     '<div class="panel panel-info">' +
                     '<div class="panel-heading">' +
                     '<h3 class="panel-title">' + excerpt(entry.titulo, 140) + '</h3>' +
@@ -218,7 +216,8 @@
                     '</td>' +
                     '<td>' + entry.atividades +
                     '</td>' +
-                    '<td> icones </td>' +
+                    '<td> <input type="button" value="Editar" onClick="editar(' + item.getKey() +
+                    ');"> </td>' +
                     '</tr>' +
                     '</table>' +
                     '</div>' +
@@ -229,6 +228,11 @@
 
             $('#entries').html(html);
         });
+
+        function editar(valor) {
+            var valorInformado = valor;
+            alert(valorInformado);
+        }
 
         /*************\
          * Utilities *

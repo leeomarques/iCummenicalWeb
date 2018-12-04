@@ -73,7 +73,7 @@
         function save_user() {
             var user_name = document.getElementById('user_name').value;
 
-            var uid = firebase.database().ref().child('users').push().key;
+            var uid = firebase.database().ref().child('Eventos').push().key;
 
             var data = {
                 user_id: uid,
@@ -81,7 +81,7 @@
             }
 
             var updates = {};
-            updates['/users/' + uid] = data;
+            updates['/Eventos/' + uid] = data;
             firebase.database().ref().update(updates);
 
             alert('The user is created successfully!');
@@ -98,7 +98,7 @@
             }
 
             var updates = {};
-            updates['/users/' + user_id] = data;
+            updates['/Eventos/' + user_id] = data;
             firebase.database().ref().update(updates);
 
             alert('The user is updated successfully!');
@@ -109,7 +109,7 @@
         function delete_user() {
             var user_id = document.getElementById('user_id').value;
 
-            firebase.database().ref().child('/users/' + user_id).remove();
+            firebase.database().ref().child('/Eventos/' + user_id).remove();
             alert('The user is deleted successfully!');
             reload_page();
         }
@@ -118,6 +118,8 @@
             window.location.reload();
         }
     </script>
+
+
 
 
 </body>

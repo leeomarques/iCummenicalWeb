@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>iCummenical - A integração em suas mãos</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">iCummenical</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li><a href="../../authentication.html"><i class="fas fa-sign-out-alt"></i>Sair</a>
+                </li>
+            </ul>
+
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="index.html"><i class="far fa-calendar-alt fa-fw"></i> Mural de Eventos</a>
+                        </li>
+                        <li>
+                            <a href="localizacao.html"><i class="fas fa-map-marker-alt fa-fw"></i> Localização</a>
+                        </li>
+                        <li>
+                            <a href="eventos.html"><i class="far fa-calendar-plus fa-fw"></i> Eventos</a>
+                        </li>
+                        <li>
+                            <a href="paroquias.html"><i class="fas fa-church fa-fw"></i> Paróquias</a>
+                        </li>
+                        <li>
+                            <a href="dizimo.html"><i class="fas fa-hand-holding-usd fa-fw"></i> Ofertar Dízimo</a>
+                        </li>
+                        <li>
+                            <a href="voluntario.html"><i class="fas fa-user fa-fw"></i> Seja um Voluntário</a>
+                        </li>
+                        <li>
+                            <a href="usuarios.html"><i class="fas fa-user-circle fa-fw"></i> Usuários</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Eventos</h1>
+
+
+                    <section class="section">
+                        <div class="container">
+
+                            <div class="content">
+                                <button id="btnAdd" class="button"><i class="fa fa-plus"></i> Adicionar Eventos</button>
+                            </div>
+                            <div id="card-list" class="columns is-mobile">
+
+                            </div>
+                        </div>
+                        <div id="modal" class="modal">
+                            <div class="modal-background"></div>
+                            <div class="modal-card">
+                                <header class="modal-card-head">
+                                    <p class="modal-card-title">Formulário de Eventos</p>
+                                    <button class="btnClose delete" aria-label="close"></button>
+                                </header>
+                                <section class="modal-card-body">
+                                    <div class="field">
+                                        <label class="label">Nome</label>
+                                        <div class="control">
+                                            <input type="hidden" id="txtType">
+                                            <input type="hidden" id="txtKey">
+                                            <input class="input" id="txtName" type="text" placeholder="Nome">
+                                        </div>
+                                        <p class="help"> </p>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">Email</label>
+                                        <div class="control">
+                                            <input class="input" id="txtEmail" type="text" placeholder="Email">
+                                        </div>
+                                        <p class="help"> </p>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">Telefone</label>
+                                        <div class="control">
+                                            <input class="input" id="txtTelefone" type="text" placeholder="Telefone">
+                                        </div>
+                                        <p class="help"> </p>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">Imagem do Perfil</label>
+                                        <div class="control">
+                                            <input class="input" id="txtPic" type="text" placeholder="Imagem do Perfil">
+                                        </div>
+                                        <p class="help"></p>
+                                    </div>
+                                </section>
+                                <footer class="modal-card-foot">
+                                    <button id="btnSave" class="button is-success">Salvar</button>
+                                    <button id="btnClose" class="button">Cancelar</button>
+                                </footer>
+                            </div>
+                        </div>
+                    </section>
+                    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+                        crossorigin="anonymous"></script>
+                    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+                    <script>
+                        var nextkey = 0;
+                        // Initialize Firebase
+                        var config = {
+                            apiKey: "AIzaSyBXTv9ar6lqLBhekXscqvI2kt6ZxUfctQA",
+                            authDomain: "icummenical.firebaseapp.com",
+                            databaseURL: "https://icummenical.firebaseio.com",
+                            projectId: "icummenical",
+                            storageBucket: "icummenical.appspot.com",
+                            messagingSenderId: "1047105331592"
+                        };
+                        firebase.initializeApp(config);
+
+                        var database = firebase.database();
+
+                        database.ref('users').on('child_added', function (data) {
+                            add_data_table(data.val().username, data.val().profile_picture, data.val().email,
+                                data.val().telefone,
+                                data.key);
+                            var lastkey = data.key;
+                            nextkey = parseInt(lastkey) + 1;
+                        });
+                        database.ref('users').on('child_changed', function (data) {
+                            update_data_table(data.val().username, data.val().profile_picture, data.val().email,
+                                data.val().telefone,
+                                data.key)
+                        });
+                        database.ref('users').on('child_removed', function (data) {
+                            remove_data_table(data.key)
+                        });
+
+                        function add_data_table(name, pic, email, telefone, key) {
+                            $("#card-list").append('<div class="column is-3" id="' + key +
+                                '"><div class="card"><div class="card-image"><figure class="image is-4by3"><img src="' +
+                                pic +
+                                '"></figure></div><div class="card-content"><div class="media"><div class="media-content"><p class="title is-4">' +
+                                name + '</p><p class="subtitle is-6">' + email +
+                                '</p><p class="subtitle is-6">' + telefone +
+                                '</p></div></div></div><footer class="card-footer"><a href="#" data-key="' + key +
+                                '" class="card-footer-item btnEdit">Editar</a><a href="#" class="card-footer-item btnRemove"  data-key="' +
+                                key + '">Remover</a></footer></div></div>');
+                        }
+
+                        function update_data_table(name, pic, email, telefone, key) {
+                            $("#card-list #" + key).html(
+                                '<div class="card"><div class="card-image"><figure class="image is-4by3"><img src="' +
+                                pic +
+                                '"></figure></div><div class="card-content"><div class="media"><div class="media-content"><p class="title is-4">' +
+                                name + '</p><p class="subtitle is-6">@' + email +
+                                '</p><p class="subtitle is-6">' + telefone +
+                                '</p></div></div></div><footer class="card-footer"><a href="#" class="card-footer-item btnEdit"  data-key="' +
+                                key + '">Editar</a><a  data-key="' + key +
+                                '" href="#" class="card-footer-item btnRemove">Remover</a></footer></div>');
+                        }
+
+                        function remove_data_table(key) {
+                            $("#card-list #" + key).remove();
+                        }
+
+                        function new_data(name, email, telefone, pic, key) {
+                            database.ref('users/' + key).set({
+                                username: name,
+                                email: email,
+                                telefone: telefone,
+                                profile_picture: pic
+                            });
+                        }
+
+                        function update_data(name, email, telefone, pic, key) {
+                            database.ref('users/' + key).update({
+                                username: name,
+                                email: email,
+                                telefone: telefone,
+                                profile_picture: pic
+                            });
+                        }
+                        $("#btnAdd").click(function () {
+                            $("#txtName").val("");
+                            $("#txtEmail").val("");
+                            $("#txtTelefone").val("");
+                            $("#txtPic").val("");
+                            $("#txtType").val("N");
+                            $("#txtKey").val("0");
+                            $("#modal").addClass("is-active");
+
+                        });
+                        $("#btnSave").click(function () {
+                            if ($("#txtType").val() == 'N') {
+                                database.ref('users').once("value").then(function (snapshot) {
+                                    if (snapshot.numChildren() == 0) {
+                                        nextkey = 1;
+                                    }
+                                    new_data($("#txtName").val(), $("#txtEmail").val(), $(
+                                        "#txtTelefone").val(), $(
+                                        "#txtPic").val(), nextkey);
+                                });
+                            } else {
+                                update_data($("#txtName").val(), $("#txtEmail").val(), $("#txtTelefone").val(),
+                                    $("#txtPic").val(),
+                                    $("#txtKey").val());
+                            }
+                            $("#btnClose").click();
+                        });
+                        $(document).on("click", ".btnEdit", function (event) {
+                            event.preventDefault();
+                            key = $(this).attr("data-key");
+                            database.ref('users/' + key).once("value").then(function (snapshot) {
+                                $("#txtName").val(snapshot.val().username);
+                                $("#txtEmail").val(snapshot.val().email);
+                                $("#txtTelefone").val(snapshot.val().telefone);
+                                $("#txtPic").val(snapshot.val().profile_picture);
+                                $("#txtType").val("E");
+                                $("#txtKey").val(key);
+                            });
+                            $("#modal").addClass("is-active");
+                        });
+                        $(document).on("click", ".btnRemove", function (event) {
+                            event.preventDefault();
+                            key = $(this).attr("data-key");
+                            database.ref('users/' + key).remove();
+                        })
+
+                        $("#btnClose,.btnClose").click(function () {
+                            $("#modal").removeClass("is-active");
+                        });
+                    </script>
+
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../vendor/raphael/raphael.min.js"></script>
+    <script src="../vendor/morrisjs/morris.min.js"></script>
+    <script src="../data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="//www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+
+</body>
+
+</html>

@@ -1,22 +1,25 @@
+
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>firebase by seegatesite.com</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+    <title>Firebase CRUD</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
 
 <body>
     <section class="section">
         <div class="container">
             <h1 class="title">
-                List Of Person
+                Lista de Usuários
             </h1>
             <div class="content">
-                <button id="btnAdd" class="button"><i class="fa fa-plus"></i> Add Person</button>
+                <button id="btnAdd" class="button"><i class="fa fa-plus"></i> Adicionar Usuário</button>
             </div>
             <div id="card-list" class="columns is-mobile">
 
@@ -26,16 +29,16 @@
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
-                    <p class="modal-card-title">Person Form</p>
+                    <p class="modal-card-title">Formulário de Usuário</p>
                     <button class="btnClose delete" aria-label="close"></button>
                 </header>
                 <section class="modal-card-body">
                     <div class="field">
-                        <label class="label">Name</label>
+                        <label class="label">Nome</label>
                         <div class="control">
                             <input type="hidden" id="txtType">
                             <input type="hidden" id="txtKey">
-                            <input class="input" id="txtName" type="text" placeholder="Name">
+                            <input class="input" id="txtName" type="text" placeholder="Nome">
                         </div>
                         <p class="help"> </p>
                     </div>
@@ -47,16 +50,23 @@
                         <p class="help"> </p>
                     </div>
                     <div class="field">
-                        <label class="label">Profile Picture</label>
+                        <label class="label">Telefone</label>
                         <div class="control">
-                            <input class="input" id="txtPic" type="text" placeholder="Profile picture url">
+                            <input class="input" id="txtTelefone" type="text" placeholder="Telefone">
+                        </div>
+                        <p class="help"> </p>
+                    </div>
+                    <div class="field">
+                        <label class="label">Imagem do Perfil</label>
+                        <div class="control">
+                            <input class="input" id="txtPic" type="text" placeholder="Imagem do Perfil">
                         </div>
                         <p class="help"></p>
                     </div>
                 </section>
                 <footer class="modal-card-foot">
-                    <button id="btnSave" class="button is-success">Save changes</button>
-                    <button id="btnClose" class="button">Cancel</button>
+                    <button id="btnSave" class="button is-success">Salvar</button>
+                    <button id="btnClose" class="button">Cancelar</button>
                 </footer>
             </div>
         </div>
@@ -64,9 +74,9 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
-
     <script>
         var nextkey = 0;
+        // Initialize Firebase
         var config = {
             apiKey: "AIzaSyBXTv9ar6lqLBhekXscqvI2kt6ZxUfctQA",
             authDomain: "icummenical.firebaseapp.com",
@@ -76,62 +86,68 @@
             messagingSenderId: "1047105331592"
         };
         firebase.initializeApp(config);
+
         var database = firebase.database();
 
         database.ref('users').on('child_added', function (data) {
-            add_data_table(data.val().username, data.val().profile_picture, data.val().email, data.key);
+            add_data_table(data.val().username, data.val().profile_picture, data.val().email, data.val().telefone, data.key);
             var lastkey = data.key;
             nextkey = parseInt(lastkey) + 1;
         });
         database.ref('users').on('child_changed', function (data) {
-            update_data_table(data.val().username, data.val().profile_picture, data.val().email, data.key)
+            update_data_table(data.val().username, data.val().profile_picture, data.val().email, data.val().telefone, data.key)
         });
         database.ref('users').on('child_removed', function (data) {
             remove_data_table(data.key)
         });
 
-        function add_data_table(name, pic, email, key) {
+        function add_data_table(name, pic, email, telefone, key) {
             $("#card-list").append('<div class="column is-3" id="' + key +
                 '"><div class="card"><div class="card-image"><figure class="image is-4by3"><img src="' + pic +
                 '"></figure></div><div class="card-content"><div class="media"><div class="media-content"><p class="title is-4">' +
-                name + '</p><p class="subtitle is-6">@' + email +
+                name + '</p><p class="subtitle is-6">' + email +
+                '</p><p class="subtitle is-6">' + telefone +
                 '</p></div></div></div><footer class="card-footer"><a href="#" data-key="' + key +
-                '" class="card-footer-item btnEdit">Edit</a><a href="#" class="card-footer-item btnRemove"  data-key="' +
-                key + '">Remove</a></footer></div></div>');
+                '" class="card-footer-item btnEdit">Editar</a><a href="#" class="card-footer-item btnRemove"  data-key="' +
+                key + '">Remover</a></footer></div></div>');
         }
 
-        function update_data_table(name, pic, email, key) {
+        function update_data_table(name, pic, email, telefone, key) {
             $("#card-list #" + key).html(
                 '<div class="card"><div class="card-image"><figure class="image is-4by3"><img src="' + pic +
                 '"></figure></div><div class="card-content"><div class="media"><div class="media-content"><p class="title is-4">' +
                 name + '</p><p class="subtitle is-6">@' + email +
+                '</p><p class="subtitle is-6">' + telefone +
                 '</p></div></div></div><footer class="card-footer"><a href="#" class="card-footer-item btnEdit"  data-key="' +
-                key + '">Edit</a><a  data-key="' + key +
-                '" href="#" class="card-footer-item btnRemove">Remove</a></footer></div>');
+                key + '">Editar</a><a  data-key="' + key +
+                '" href="#" class="card-footer-item btnRemove">Remover</a></footer></div>');
         }
 
         function remove_data_table(key) {
             $("#card-list #" + key).remove();
         }
 
-        function new_data(name, email, pic, key) {
+        function new_data(name, email, telefone, pic, key) {
             database.ref('users/' + key).set({
                 username: name,
                 email: email,
+                telefone: telefone,
                 profile_picture: pic
             });
         }
 
-        function update_data(name, email, pic, key) {
+        function update_data(name, email, telefone, pic, key) {
             database.ref('users/' + key).update({
                 username: name,
                 email: email,
+                telefone: telefone,
                 profile_picture: pic
             });
         }
         $("#btnAdd").click(function () {
             $("#txtName").val("");
             $("#txtEmail").val("");
+            $("#txtTelefone").val("");
             $("#txtPic").val("");
             $("#txtType").val("N");
             $("#txtKey").val("0");
@@ -144,10 +160,10 @@
                     if (snapshot.numChildren() == 0) {
                         nextkey = 1;
                     }
-                    new_data($("#txtName").val(), $("#txtEmail").val(), $("#txtPic").val(), nextkey);
+                    new_data($("#txtName").val(), $("#txtEmail").val(),$("#txtTelefone").val(), $("#txtPic").val(), nextkey);
                 });
             } else {
-                update_data($("#txtName").val(), $("#txtEmail").val(), $("#txtPic").val(), $("#txtKey").val());
+                update_data($("#txtName").val(), $("#txtEmail").val(),$("#txtTelefone").val(), $("#txtPic").val(), $("#txtKey").val());
             }
             $("#btnClose").click();
         });
@@ -157,6 +173,7 @@
             database.ref('users/' + key).once("value").then(function (snapshot) {
                 $("#txtName").val(snapshot.val().username);
                 $("#txtEmail").val(snapshot.val().email);
+                $("#txtTelefone").val(snapshot.val().telefone);
                 $("#txtPic").val(snapshot.val().profile_picture);
                 $("#txtType").val("E");
                 $("#txtKey").val(key);
