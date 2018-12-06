@@ -21,15 +21,6 @@ function create(nome, email, telefone, local, descricao, atividades) {
         telefone: telefone
     };
 
-    return firebase.database().ref('Voluntarios/').push(dados);
+    return firebase.database().ref('voluntarios/').push(dados);
 
 }
-
-firebase.database().ref('voluntarios').on('value', function (snapshot) {
-    usersList.innerHTML = '';
-    snapshot.forEach(function (item) {
-        var li = document.createElement('li');
-        li.appendChild(document.createTextNode(item.val().name + ' : ' + item.val().age));
-        usersList.appendChild(li);
-    });
-});

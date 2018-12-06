@@ -141,6 +141,13 @@
                                         <p class="help"> </p>
                                     </div>
                                     <div class="field">
+                                        <label class="label">Confirmar Senha</label>
+                                        <div class="control">
+                                            <input class="input" id="txtCSenha" type="password" placeholder="Confirmar Senha">
+                                        </div>
+                                        <p class="help"> </p>
+                                    </div>
+                                    <div class="field">
                                         <label class="label">Imagem do Perfil</label>
                                         <div class="control">
                                             <input class="input" id="txtPic" type="text" placeholder="Imagem do Perfil">
@@ -174,40 +181,45 @@
                         var database = firebase.database();
 
                         database.ref('usuarios').on('child_added', function (data) {
-                            add_data_table(data.val().username, data.val().profile_picture, data.val().email,
-                                data.val().senha,
-                                data.key);
+                            add_data_table(
+                                        data.val().nome,
+                                        data.val().profile_picture, 
+                                        data.val().email,
+                                        data.val().senha,
+                                        data.key);
+                                        
                             var lastkey = data.key;
                             nextkey = parseInt(lastkey) + 1;
                         });
                         database.ref('usuarios').on('child_changed', function (data) {
-                            update_data_table(data.val().username, data.val().profile_picture, data.val().email,
-                                data.val().senha,
-                                data.key)
+                            update_data_table(
+                                            data.val().nome,
+                                            data.val().profile_picture, 
+                                            data.val().email,
+                                            data.val().senha,
+                                            data.key)
                         });
                         database.ref('usuarios').on('child_removed', function (data) {
                             remove_data_table(data.key)
                         });
 
-                        function add_data_table(name, pic, email, senha, key) {
+                        function add_data_table(nome, pic, email, senha, key) {
                             $("#card-list").append('<div class="column is-4" id="' + key +
                                 '"><div class="card"><div class="card-image"><figure class="image is-4by3"><img src="' +
                                 pic +
                                 '"></figure></div><div class="card-content"><div class="media"><div class="media-content"><p class="title is-4">' +
-                                name + '</p><p class="subtitle is-6">' + email +
-                                '</p><p class="subtitle is-6">' + senha +
+                                nome + '</p><p class="subtitle is-6">' + email +
                                 '</p></div></div></div><footer class="card-footer"><a href="#" data-key="' + key +
                                 '" class="card-footer-item btnEdit">Editar</a><a href="#" class="card-footer-item btnRemove"  data-key="' +
                                 key + '">Remover</a></footer></div></div>');
                         }
 
-                        function update_data_table(name, pic, email, senha, key) {
+                        function update_data_table(nome, pic, email, senha, key) {
                             $("#card-list #" + key).html(
                                 '<div class="card"><div class="card-image"><figure class="image is-4by3"><img src="' +
                                 pic +
                                 '"></figure></div><div class="card-content"><div class="media"><div class="media-content"><p class="title is-4">' +
-                                name + '</p><p class="subtitle is-6">@' + email +
-                                '</p><p class="subtitle is-6">' + senha +
+                                nome + '</p><p class="subtitle is-6">' + email +
                                 '</p></div></div></div><footer class="card-footer"><a href="#" class="card-footer-item btnEdit"  data-key="' +
                                 key + '">Editar</a><a  data-key="' + key +
                                 '" href="#" class="card-footer-item btnRemove">Remover</a></footer></div>');
@@ -217,18 +229,18 @@
                             $("#card-list #" + key).remove();
                         }
 
-                        function new_data(name, email, senha, pic, key) {
+                        function new_data(nome, email, senha, pic, key) {
                             database.ref('usuarios/' + key).set({
-                                username: name,
+                                nome: nome,
                                 email: email,
                                 senha: senha,
                                 profile_picture: pic
                             });
                         }
 
-                        function update_data(name, email, senha, pic, key) {
+                        function update_data(nome, email, senha, pic, key) {
                             database.ref('usuarios/' + key).update({
-                                username: name,
+                                nome: nome,
                                 email: email,
                                 senha: senha,
                                 profile_picture: pic
@@ -250,24 +262,33 @@
                                     if (snapshot.numChildren() == 0) {
                                         nextkey = 1;
                                     }
-                                    new_data($("#txtName").val(), $("#txtEmail").val(), $(
-                                        "#txtSenha").val(), $(
-                                        "#txtPic").val(), nextkey);
+                                    new_data(
+                                            $("#txtName").val(),
+                                            $("#txtEmail").val(),
+                                            $("#txtSenha").val(), 
+                                            $("#txtPic").val(), 
+                                            nextkey);
+                                            alert('Cadastro Realizado com sucesso!');
+                                            location.reload();
                                 });
                             } else {
-                                update_data($("#txtName").val(), $("#txtEmail").val(), $("#txtSenha").val(),
+                                update_data(
+                                    $("#txtName").val(),
+                                    $("#txtEmail").val(), 
+                                    $("#txtSenha").val(),
                                     $("#txtPic").val(),
                                     $("#txtKey").val());
                             }
                             $("#btnClose").click();
+                            
                         });
                         $(document).on("click", ".btnEdit", function (event) {
                             event.preventDefault();
                             key = $(this).attr("data-key");
                             database.ref('usuarios/' + key).once("value").then(function (snapshot) {
-                                $("#txtName").val(snapshot.val().username);
+                                $("#txtName").val(snapshot.val().nome);
                                 $("#txtEmail").val(snapshot.val().email);
-                                $("#txtSenha").val(snapshot.val().senha);
+                                //$("#txtSenha").val(snapshot.val().senha);
                                 $("#txtPic").val(snapshot.val().profile_picture);
                                 $("#txtType").val("E");
                                 $("#txtKey").val(key);

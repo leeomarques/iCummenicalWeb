@@ -182,41 +182,49 @@
 
                         database.ref('paroquias').on('child_added', function (data) {
                             add_data_table(data.val().nome,
-                                           data.val().endereco,
-                                           data.val().paroco,
-                                           data.val().funcionamento,
-                                           data.val().confissoes,
-                                           data.key);
+                                data.val().endereco,
+                                data.val().paroco,
+                                data.val().funcionamento,
+                                data.val().confissoes,
+                                data.key);
 
                             var lastkey = data.key;
                             nextkey = parseInt(lastkey) + 1;
                         });
                         database.ref('paroquias').on('child_changed', function (data) {
                             update_data_table(data.val().nome,
-                                              data.val().endereco,
-                                              data.val().paroco,
-                                              data.val().funcionamento,
-                                              data.val().confissoes,
-                                              data.key)
+                                data.val().endereco,
+                                data.val().paroco,
+                                data.val().funcionamento,
+                                data.val().confissoes,
+                                data.key)
                         });
                         database.ref('paroquias').on('child_removed', function (data) {
                             remove_data_table(data.key)
                         });
 
-                        function add_data_table(name, pic, email, telefone, key) {
-                            $("#card-list").append('<div class="col-md-4"> <div class="column is-4" id="' + key + '"> <div class="card"> <div class="card-image"> <figure class="image is-4by3"><img src="' + pic + '"></figure> </div> <div class="card-content"> <div class="media"> <div class="media-content"> <p class="title is-4">' + nome + '</p> <p class="subtitle is-6">' + endereco + '</p> <p class="subtitle is-6">' + paroco + '</p> <p class="subtitle is-6">' + funcionamento + '</p> <p class="subtitle is-6">' + confissoes + '</p> </div> </div> </div> <footer class="card-footer"><a href="#" data-key="' + key + '" class="card-footer-item btnEdit">Editar</a><a href="#" class="card-footer-item btnRemove" data-key="' + key + '">Remover</a></footer> </div> </div></div>');
+                        function add_data_table(nome, endereco, paroco, funcionamento, confissoes, key) {
+                            $("#card-list").append('<div class="col-md-5"> <div class="column" id="' + key +
+                                '"> <div class="card"><div class="card-content"> <div class="media"> <div class="media-content"> <p class="title is-4">' +
+                                nome + '</p> <p class="subtitle is-6">' + endereco +
+                                '</p> <p class="subtitle is-6">Pároco Responsável: ' + paroco +
+                                '</p> <p class="subtitle is-6">Horário de Funcionamento: ' + funcionamento +
+                                '</p> <p class="subtitle is-6">Horário de Confissões: ' + confissoes +
+                                '</p> </div> </div> </div> <footer class="card-footer"><a href="#" data-key="' +
+                                key +
+                                '" class="card-footer-item btnEdit">Editar</a><a href="#" class="card-footer-item btnRemove" data-key="' +
+                                key + '">Remover</a></footer> </div> </div></div>');
                         }
 
-                        function update_data_table(name, pic, email, telefone, key) {
+                        function update_data_table(nome, endereco, paroco, funcionamento, confissoes, key) {
                             $("#card-list #" + key).html(
-                                '<div class="card"><div class="card-image"><figure class="image is-4by3"><img src="' +
-                                pic +
-                                '"></figure></div><div class="card-content"><div class="media"><div class="media-content"><p class="title is-4">' +
-                                name + '</p><p class="subtitle is-6">@' + email +
-                                '</p><p class="subtitle is-6">' + telefone +
-                                '</p></div></div></div><footer class="card-footer"><a href="#" class="card-footer-item btnEdit"  data-key="' +
-                                key + '">Editar</a><a  data-key="' + key +
-                                '" href="#" class="card-footer-item btnRemove">Remover</a></footer></div>');
+                                '<div class="card"> </div> <div class="card-content"> <div class="media"> <div class="media-content"> <p class="title is-4">' +
+                                nome + '</p> <p class="subtitle is-6">' + endereco +
+                                '</p> <p class="subtitle is-6">' + paroco + '</p> <p class="subtitle is-6">' +
+                                funcionamento + '</p> <p class="subtitle is-6">' + confissoes +
+                                '</p> </div> </div> </div> <footer class="card-footer"> <a href="#" class="card-footer-item btnEdit" data-key="' +
+                                key + '">Editar</a> <a data-key="' + key +
+                                '" href="#" class="card-footer-item btnRemove">Remover</a></footer> </div>');
                         }
 
                         function remove_data_table(key) {
@@ -259,20 +267,22 @@
                                     if (snapshot.numChildren() == 0) {
                                         nextkey = 1;
                                     }
-                                    new_data($("#txtNome").val(), 
-                                             $("#txtEndereco").val(), 
-                                             $("#txtParoco").val(), 
-                                             $("#txtFuncionamento").val(),
-                                             $("#txtConfissoes").val(),
-                                             nextkey);
+                                    new_data($("#txtNome").val(),
+                                        $("#txtEndereco").val(),
+                                        $("#txtParoco").val(),
+                                        $("#txtFuncionamento").val(),
+                                        $("#txtConfissoes").val(),
+                                        nextkey);
+                                    alert('Cadastro Realizado com sucesso!');
+                                    location.reload();
                                 });
                             } else {
-                                update_data($("#txtNome").val(), 
-                                            $("#txtEndereco").val(),
-                                            $("#txtParoco").val(),
-                                            $("#txtFuncionamento").val(),
-                                            $("#txtConfissoes").val(),
-                                            $("#txtKey").val());
+                                update_data($("#txtNome").val(),
+                                    $("#txtEndereco").val(),
+                                    $("#txtParoco").val(),
+                                    $("#txtFuncionamento").val(),
+                                    $("#txtConfissoes").val(),
+                                    $("#txtKey").val());
                             }
                             $("#btnClose").click();
                         });
